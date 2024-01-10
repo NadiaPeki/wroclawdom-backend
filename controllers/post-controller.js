@@ -6,19 +6,16 @@ const handleError = (res, error) => {
   res.status(500).json({ error });
 }
 
-const getPosts = (req, res) => {
-  Post
-    .find()  
-    .then((posts) => {
-      res
-        .status(200)
-        .json(posts)
-    })
-    .catch((err) => {
-      console.error('Error fetching posts:', err); 
-      handleError(res, err);
-    });
-}
+const getPosts = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error('Error fetching posts:', err);
+    handleError(res, err);
+  }
+};
+
 
 const getPostBySlug = async (req, res) => {
   try {
