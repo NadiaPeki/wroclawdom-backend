@@ -25,6 +25,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message });
 });
 
+
 // Подключение роутов
 const postRoutes = require('./routes/post-routes');
 app.use(postRoutes);
