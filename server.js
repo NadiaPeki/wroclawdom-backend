@@ -35,7 +35,7 @@ mongoose
   .connect(URL, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => {
-    console.error('DB Connection error:', err);
+    console.error('DB Connection error:', err.details);
     process.exit(1); // Завершаем процесс с ошибкой
   });
 
