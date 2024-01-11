@@ -8,13 +8,22 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 const URL = 'mongodb+srv://napekarskaya:nadia060290i@cluster0.e3cmski.mongodb.net/postsbase';
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   optionsSuccessStatus: 200,
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
+
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 // Middleware для обработки JSON в запросах
 app.use(express.json());
