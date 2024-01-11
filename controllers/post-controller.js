@@ -9,6 +9,7 @@ const handleError = (res, error) => {
 const getPosts = async (req, res) => {
   try {
     const posts = await Post.find();
+    console.log(posts)
     res.status(200).json(posts);
   } catch (err) {
     console.error('Error fetching posts:', err);
