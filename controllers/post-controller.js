@@ -17,7 +17,6 @@ const getPosts = async (req, res) => {
   }
 };
 
-
 const getPostBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
