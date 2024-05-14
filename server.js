@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 // Подключение к MongoDB
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = `MONGODB_URI=mongodb+srv://napekarskaya:nadia060290i@cluster0.e3cmski.mongodb.net/postsbase`;
 
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
