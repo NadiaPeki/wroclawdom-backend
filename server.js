@@ -1,47 +1,41 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Post = require('./models/post');
-const path = require('path');
+const pizzaRoutes = require('./routes/post-routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware для обработки JSON в запросах
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-// Middleware для обработки CORS
-app.use(cors());
-
-// Middleware для обработки заголовков CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
+// Health Check Route
+app.get('/', (req, res) => {
+  res.send('Server is up and running!');
 });
 
+// Post Routes
+// app.use('/api', postsRoutes);
 
-mongoose
-  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to MongoDB');
-    console.log('Checking MongoDB connection status...');
-    console.log(`MongoDB connection state: ${mongoose.connection.readyState}`);
-  })
-  .catch((err) => {
-    console.error('DB Connection error:', err.message);
-    process.exit(1); 
-  });
-
+// Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: err.message });
 });
 
+// Connect to MongoDB
+const MONGODB_URI =
+  'mongodb+srv://napekarskaya:nadia060290i@cluster0.e3cmski.mongodb.net/postsbase';
+mongoose
+  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => {
+    console.error('DB Connection error:', err.message);
+    process.exit(1);
+  });
 
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
