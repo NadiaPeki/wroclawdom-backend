@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const pizzaRoutes = require('./routes/post-routes');
+const postsRoutes = require('./routes/post-routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 // Post Routes
-// app.use('/api', postsRoutes);
+app.use('/api', postsRoutes);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
